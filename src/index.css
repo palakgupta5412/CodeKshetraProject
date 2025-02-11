@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: rgb(19, 19, 19);
+  backdrop-filter: blur(100px);
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.heading{
+  box-sizing: border-box;
+  border-color: deeppink;
+  text-shadow: 0 0 3px pink;
+  opacity: 40;
+}
+
+.floating-box {
+  position: absolute;
+  padding: 5px 10px;
+  /* border: 0.1px solid white; */
+  border-radius: 5px;
+  background: rgba(122, 121, 121, 0.1);
+  font-size: 1.2rem;
+  text-align: center;
+  backdrop-filter: blur(19px);
+  opacity: 0.2;
+  transition: transform 0.3s ease-in-out;
+}
+
+.floating-box:hover {
+  color: white;
+  opacity: 100;
+  border: 2px solid deeppink;
+}
+
+/* Random Floating Animations */
+@keyframes floatAnimation1 {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-15px) rotate(2deg); }
+}
+
+@keyframes floatAnimation2 {
+  0% { transform: translateX(0px) rotate(0deg); }
+  100% { transform: translateX(15px) rotate(-2deg); }
+}
+
+@keyframes floatAnimation3 {
+  0% { transform: translate(-10px, 5px) rotate(0deg); }
+  100% { transform: translate(10px, -5px) rotate(3deg); }
+}
+
+/* Apply animations to different floating-boxes */
+.floating-box:nth-child(3n) {
+  animation: floatAnimation1 3s infinite alternate ease-in-out;
+}
+
+.floating-box:nth-child(3n + 1) {
+  animation: floatAnimation2 4s infinite alternate ease-in-out;
+}
+
+.floating-box:nth-child(3n + 2) {
+  animation: floatAnimation3 5s infinite alternate ease-in-out;
+}
+
+/* Hover Effect */
+.floating-box:hover {
+  transform: scale(1.3);
+}
