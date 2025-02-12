@@ -3,9 +3,55 @@ import Model2 from './Model2'
 import { getExercises } from '../constants'
 import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
+import { useControls } from "leva";
 import { OrbitControls } from '@react-three/drei'
 import { CardModel } from './CardModel'
 const Card = ({model , name , text}) => {
+
+ const x = useControls("CardModel" , 
+    {
+      positionX: {
+        value:2.5 ,
+        min : -1000 ,
+        max : 1000
+      },
+      positionY: {
+        value: 2.5 ,
+        min : -1000 ,
+        max : 1000
+      },
+      positionZ: {
+        value:2.5 ,
+        min : -1000 ,
+        max : 1000
+      },
+      rotationX: {
+        value:2.5 ,
+        min : -10 ,
+        max : 10
+      },
+      rotationY: {
+        value:2.5 ,
+        min : -10 ,
+        max : 10
+      },
+      rotationZ: {
+        value:2.5 ,
+        min : -20 ,
+        max : 10
+      },
+      scale: {
+        value:0.1 ,
+        min : 0.00000000001 ,
+        max : 10
+      }
+    }
+  )
+
+
+
+
+
 
     const [currEx , setEx] = useState(0);
     const currCard = getExercises[currEx]
@@ -38,8 +84,15 @@ const Card = ({model , name , text}) => {
                 <Canvas>
                     <ambientLight intensity={1} position={[10,10,10]} />
                     <directionalLight intensity={3} position={[2,2,2]} />
-                    <CardModel scale={3} position={[-0 , -2.5 ,0]} />
-                    <OrbitControls enableZoom={false} maxPolarAngle={Math.PI/2} minPolarAngle={Math.PI/2}/>
+                    <CardModel 
+                      // scale={3} 
+                      position={[0 , -6 ,-3]}
+                      // position={[x.positionX , x.positionY , x.positionZ]}
+                      scale={5}
+                      rotation = {[1.7 , 3.1 , -3.2]}
+                    />
+
+                    {/* <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} /> */}
                 </Canvas>
             </div>
 
@@ -54,7 +107,9 @@ const Card = ({model , name , text}) => {
                   <button className='w-6 h-6 arrow-btn' onClick={()=>{handleNavigation('previous')}}>
                     <img src="src/assets/left-arrow.png" alt="left-arrow" />
                   </button>
-
+                  <button className='bg-orange-600 p-2 text-white bold w-1/2 rounded-3xl border-2 border-black'>
+                    Start Exercise
+                  </button>
                   <button className='w-6 h-6 arrow-btn' onClick={()=>{handleNavigation('next')}}>
                     <img src='src/assets/right-arrow.png' alt='right-arrow' />
                   </button>

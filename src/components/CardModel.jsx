@@ -14,14 +14,19 @@ import { useAnimations, useFBX } from '@react-three/drei'
 export function CardModel(props) {
 
   const group = useRef();
-  const {animations : KickAnimation} = useFBX('/models/Kick.fbx');
-      console.log(KickAnimation);
-      KickAnimation[0].name = 'Kick';
-      const {actions} = useAnimations(KickAnimation, group);
+  const {animations : JumpingAnimation} = useFBX('/models/JumpingJack.fbx');
+  const {animations : PushUpAnimation} = useFBX('/models/PushUps.fbx');
+  const {animations : PunchAnimation} = useFBX('/models/Punch.fbx');
+
+      // console.log(KickAnimation);
+      JumpingAnimation[0].name = 'Jumping';
+      PunchAnimation[0].name = 'Punch';
+      PushUpAnimation[0].name = 'PushUp';
+      const {actions} = useAnimations(JumpingAnimation, group);
   
   
       useEffect(()=>{
-        actions["Kick"].reset().fadeIn(0.3).play();
+        actions["Jumping"].reset().fadeIn(0.8).play();
       } , [])
 
 
@@ -29,7 +34,7 @@ export function CardModel(props) {
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} rotateX={-Math.PI / 2}>
       <primitive object={nodes.Hips} />
       <skinnedMesh geometry={nodes.Wolf3D_Hair.geometry} material={materials.Wolf3D_Hair} skeleton={nodes.Wolf3D_Hair.skeleton} />
       <skinnedMesh geometry={nodes.Wolf3D_Body.geometry} material={materials.Wolf3D_Body} skeleton={nodes.Wolf3D_Body.skeleton} />

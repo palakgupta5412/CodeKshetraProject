@@ -99,7 +99,7 @@ const HomePage = () => {
               { text: "Concentration", top: "81%", left: "54%" },
             ].map((item, index) => (
               <motion.div
-                key={index} className="floating-box absolute p-1 px-1 border border-gray-600 rounded-md bg-opacity-100 bg-white text-white text-md opacity-40"
+                key={index} className="floating-box hover:text-lg absolute p-1 px-1 border border-gray-600 rounded-md bg-opacity-100 bg-white text-white text-md opacity-40"
                 style={{
                   top: item.top,
                   left: item.left,
@@ -114,7 +114,7 @@ const HomePage = () => {
       </AnimatePresence>
 
       <div className="w-full h-screen border-white">
-        <Canvas>
+        <Canvas className="opacity-40 hover:opacity-100">
           <ambientLight intensity={7} />
           <spotLight position={[10, 10, 10]} />
           <directionalLight position={[10, 10, 10]} intensity={1} />
@@ -146,6 +146,7 @@ const HomePage = () => {
             rotation = {[3.2 , 3 , -3.2 ]}
             scale={2.7}  
             position={[-1, -3, 0]} 
+            
           />
 
           <Machine
