@@ -114,7 +114,7 @@ const HomePage = () => {
       </AnimatePresence>
 
       <div className="w-full h-screen border-white">
-        <Canvas className="opacity-40 hover:opacity-100">
+        <Canvas className="opacity-40">
           <ambientLight intensity={7} />
           <spotLight position={[10, 10, 10]} />
           <directionalLight position={[10, 10, 10]} intensity={1} />
@@ -149,14 +149,29 @@ const HomePage = () => {
             
           />
 
-          <Machine
-            // position={[x.positionX , x.positionY , x.positionZ]}
-            // scale={x.scale}
-            // rotation = {[x.rotationX , x.rotationY , x.rotationZ]}
-            position={[243 , 223 , -658]}
-            scale={0.1}
-            rotation = {[-8.9 , 7.2, -16.1]}
-          />
+          <group className="hover:opacity-100">
+            <Machine
+              // position={[x.positionX , x.positionY , x.positionZ]}
+              // scale={x.scale}
+              // rotation = {[x.rotationX , x.rotationY , x.rotationZ]}
+              position={[243 , 223 , -658]}
+              scale={0.1}
+              rotation = {[-8.9 , 7.2, -16.1]}
+            />
+
+          
+            <Dumbbell3
+              position={[-15 , 10 , -18]}
+              scale={0.16}
+              rotation = {[4.7 , 0.9 , -0.2]}
+            />
+
+            <Gym
+              position={[9 , -9 , -18]}
+              scale={0.1}
+              rotation = {[ -1.5 , -4.5 , 1]}
+            /> 
+          </group>
 
           {/* <Watch
             position={[x.positionX , x.positionY , x.positionZ]}
@@ -182,17 +197,6 @@ const HomePage = () => {
             rotation = {[x.rotationX , x.rotationY , x.rotationZ]}
           /> */}
         
-          <Dumbbell3
-            position={[-15 , 10 , -18]}
-            scale={0.16}
-            rotation = {[4.7 , 0.9 , -0.2]}
-          />
-
-        <Gym
-            position={[9 , -9 , -18]}
-            scale={0.1}
-            rotation = {[ -1.5 , -4.5 , 1]}
-        /> 
 
         </Canvas>
       </div>

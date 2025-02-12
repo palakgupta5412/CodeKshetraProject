@@ -67,19 +67,31 @@ const Card = ({model , name , text }) => {
 
             <div className='p-2 h-3/5'>
                 <Canvas>
-                    <ambientLight intensity={1} position={[10,10,10]} />
+                    {/* <ambientLight intensity={1} position={[10,10,20]} />
                     <directionalLight intensity={3} position={[2,2,2]} />
+                    <perspectiveCamera position={[0,0,0]}/> */}
+
+                        <ambientLight intensity={0.5} />
+                        <directionalLight intensity={1} position={[5, 5, 5]} />
+                        
+                        {/* Camera positioned to capture the model */}
+                        <perspectiveCamera position={[0, 0, 10]} fov={75} />
                     <CardModel 
                       // scale={3} 
                       text={currCard.name}
-                      position={[0 , -4 ,-3]}
+                      position={[0 , -9 ,-3]}
                       // position={[x.positionX , x.positionY , x.positionZ]}
                       scale={5.4}
-                      rotation = {[1.3 , 3.1 , 3.1]}
+                      rotation = {[1.5 , 3.1 , 3.1]}
                       // rotation = {[x.rotationX , x.rotationY , x.rotationZ]}
                     />
 
-                    {/* <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} /> */}
+                    <OrbitControls  
+                      enableZoom={false} 
+                      maxPolarAngle={Math.PI / 2} 
+                      minPolarAngle={Math.PI / 2} 
+                      target={[0, -4 , -3]}
+                    />
                 </Canvas>
             </div>
 
@@ -91,7 +103,7 @@ const Card = ({model , name , text }) => {
 
                 <div className="flex p-2 items-center w-full justify-around mt-7">
 
-                  <button className='w-6 h-6 arrow-btn' onClick={()=>{handleNavigation('previous',{text})}}>
+                  <button className='w-6 h-6 arrow-btn hover:border-1 hover:border-orange-500' onClick={()=>{handleNavigation('previous',{text})}}>
                     <img src="src/assets/left-arrow.png" alt="left-arrow" />
                   </button>
                   <button className='bg-orange-600 p-2 text-white bold w-1/2 rounded-3xl border-2 border-black'>

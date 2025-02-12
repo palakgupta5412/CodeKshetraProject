@@ -13,16 +13,17 @@ import { useGSAP } from '@gsap/react'
 import { useEffect, useRef } from 'react'
 import { useAnimations, useFBX } from '@react-three/drei'
 
+
 export function CardModel({text , ...props }) {
   const group = useRef();
 
-  useGSAP(() => {
-    gsap.from(group.current.rotation, {
-      y: Math.PI / 2,
-      duration: 1,
-      ease: 'power3.Inout',
-    });
-  }, [text]);
+  // useGSAP(() => {
+  //   gsap.from(group.current.rotation, {
+  //     y: Math.PI / 2,
+  //     duration: 1,
+  //     ease: 'power3.Inout',
+  //   });
+  // }, [text]);
  
     const {animations : anim} = useFBX(`/models/${text}.fbx`);
     anim[0].name = text ;
