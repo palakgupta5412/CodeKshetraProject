@@ -7,34 +7,61 @@ import React from 'react'
 import { useGraph } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { SkeletonUtils } from 'three-stdlib'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 import { useEffect, useRef } from 'react'
 import { useAnimations, useFBX } from '@react-three/drei'
 
-export function CardModel(props) {
-
+export function CardModel({text , ...props }) {
   const group = useRef();
-  const {animations : JumpingAnimation} = useFBX('/models/JumpingJack.fbx');
-  const {animations : PushUpAnimation} = useFBX('/models/PushUps.fbx');
-  const {animations : PunchAnimation} = useFBX('/models/Punch.fbx');
+
+  useGSAP(() => {
+    gsap.from(group.current.rotation, {
+      y: Math.PI / 2,
+      duration: 1,
+      ease: 'power3.Inout',
+    });
+  }, [text]);
+ 
+    const {animations : anim} = useFBX(`/models/${text}.fbx`);
+    anim[0].name = text ;
+    const {actions} = useAnimations(anim , group);
+    
+    useEffect(() => {
+      if (actions[text]) {
+        actions[text].reset().fadeIn(0.8).play();
+      }
+  
+      return () => {
+        if (actions[text]) {
+          actions[text].fadeOut(0.5);
+        }
+      };
+    }, [text, actions]);
+  
+  
+  // const {animations : JumpingAnimation} = useFBX('/models/JumpingJack.fbx');
+  // const {animations : PushUpAnimation} = useFBX('/models/PushUps.fbx');
+  // const {animations : PunchAnimation} = useFBX('/models/Punch.fbx');
 
       // console.log(KickAnimation);
-      JumpingAnimation[0].name = 'Jumping';
-      PunchAnimation[0].name = 'Punch';
-      PushUpAnimation[0].name = 'PushUp';
-      const {actions} = useAnimations(JumpingAnimation, group);
+      // JumpingAnimation[0].name = 'Jumping';
+      // PunchAnimation[0].name = 'Punch';
+      // PushUpAnimation[0].name = 'PushUp';
+      // const {actions} = useAnimations(JumpingAnimation, group);
   
   
-      useEffect(()=>{
-        actions["Jumping"].reset().fadeIn(0.8).play();
-      } , [])
+      // useEffect(()=>{
+      //   actions["Jumping"].reset().fadeIn(0.8).play();
+      // } , [])
 
 
   const { scene } = useGLTF('/models/CardModel.glb')
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes, materials } = useGraph(clone)
   return (
-    <group ref={group} {...props} dispose={null} rotateX={-Math.PI / 2}>
+    <group ref={group} {...props} dispose={null} >
       <primitive object={nodes.Hips} />
       <skinnedMesh geometry={nodes.Wolf3D_Hair.geometry} material={materials.Wolf3D_Hair} skeleton={nodes.Wolf3D_Hair.skeleton} />
       <skinnedMesh geometry={nodes.Wolf3D_Body.geometry} material={materials.Wolf3D_Body} skeleton={nodes.Wolf3D_Body.skeleton} />
