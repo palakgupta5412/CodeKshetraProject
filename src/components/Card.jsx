@@ -6,6 +6,8 @@ import { Canvas } from '@react-three/fiber'
 import { useControls } from "leva";
 import { OrbitControls } from '@react-three/drei'
 import { CardModel } from './CardModel'
+import { headTextAnimation } from '../config/motion'
+import { slideAnimation } from '../config/motion'
 const Card = ({model , name , text }) => {
 
 //  const x = useControls("CardModel" , 
@@ -61,20 +63,14 @@ const Card = ({model , name , text }) => {
   
 
   return (
-    <main className='m-28 mb-14 text-center w-full flex flex-wrap justify-center'>
+    <main {...slideAnimation("right")} className='m-28 mb-14 text-center w-full flex flex-wrap justify-center'>
         <div className='grid lg:grid-cols-1 w-1/3 h-full rounded-3xl border-2 border-orange-500' >
             <div>
 
             <div className='p-2 h-3/5'>
                 <Canvas>
-                    {/* <ambientLight intensity={1} position={[10,10,20]} />
-                    <directionalLight intensity={3} position={[2,2,2]} />
-                    <perspectiveCamera position={[0,0,0]}/> */}
-
-                        <ambientLight intensity={0.5} />
+                        <ambientLight intensity={1} />
                         <directionalLight intensity={1} position={[5, 5, 5]} />
-                        
-                        {/* Camera positioned to capture the model */}
                         <perspectiveCamera position={[0, 0, 10]} fov={75} />
                     <CardModel 
                       // scale={3} 
