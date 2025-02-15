@@ -14,7 +14,7 @@ import { useEffect, useRef } from 'react'
 import { useAnimations, useFBX } from '@react-three/drei'
 
 
-export function CardModel({text , ...props }) {
+export function CardModel({text , ...props } ) {
   const group = useRef();
 
   // useGSAP(() => {
