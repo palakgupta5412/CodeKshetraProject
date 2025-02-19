@@ -9,13 +9,11 @@ import Male2 from '../components/Male2'
 import Male3 from '../components/Male3'
 import Male4 from '../components/Male4'
 import GridMotion from '../constants/GridMotion';
-import { useControls } from 'leva'
 import { useState } from 'react'
 import { useEffect } from 'react'
-
+import Hyperspeed from '../constants/Hyperspeed';
 import { Canvas } from '@react-three/fiber'
-import { Html, OrbitControls } from '@react-three/drei'
-import Arrow from '../components/Arrow'
+import { OrbitControls } from '@react-three/drei'
 
 const AvatarGenerator = () => {
 
@@ -111,7 +109,7 @@ const AvatarGenerator = () => {
 
   <section className='mt-32'>
 
-    <h1 className=' text-center text-3xl font-extrabold bg-gradient-to-r from-gray-500 via-white to-orange-700 text-black opacity-55 rounded-full p-3 '>"Curious about your digital self? Enter your details and watch your custom avatar come to life!"</h1>
+    <h1 className=' text-center lg:hidden text-2xl font-extrabold bg-gradient-to-r from-gray-500 to-black text-white border-t-4 border-orange-500 opacity-55 rounded p-3 '>"From Now to Wow—Watch Yourself Transform!"</h1>
     <main className="relative w-full h-screen flex flex-col md:flex-row gap-20 justify-center items-center">
 
 <div className="absolute inset-0 -z-10 opacity-10">
@@ -119,9 +117,9 @@ const AvatarGenerator = () => {
 </div>
 
 <div className="relative bg-gray-800 bg-opacity-80 p-6 rounded-lg shadow-lg">
-<label className="text-white p-2 block text-lg font-semibold">Select Gender:</label>
+<label className="text-white p-2 text-center block text-lg font-semibold">Select Gender:</label>
 <select
-  className="p-2 border rounded-md bg-gray-700 text-white"
+  className="w-full text-center p-2 border rounded-md bg-gray-700 text-white"
   value={gender}
   onChange={(e) => setGender(e.target.value)}
 >
@@ -132,61 +130,72 @@ const AvatarGenerator = () => {
 <label className="text-white p-2 text-center block mt-2 text-lg font-semibold">Enter Weight:</label>
 <input
   type="number"
-  className="p-2 border rounded-md bg-gray-700 text-white w-20"
+  className="p-2 w-full text-center border rounded-md bg-gray-700 text-white w-20"
   value={weight}
   onChange={(e) => setWeight(e.target.value)}
 />
 </div>
 
 
-<div className={`${isHidden? "w-1/3": "w-1/5"} relative w-1/3 h-3/4 bg-black bg-opacity-70 border-2 border-orange-500 rounded-3xl flex flex-col items-center`}>
-<Canvas className="h-2/3 w-full">
+<div className={`relative w-1/3 h-3/4 bg-gray-900 bg-opacity-80 border-2 border-orange-500 rounded-3xl flex flex-col items-center`}>
+
+<div className="absolute -z-10 opacity-80">
+        <Hyperspeed
+          effectOptions={{
+            onSpeedUp: () => { },
+            onSlowDown: () => { },
+            distortion: 'turbulentDistortion',
+            length: 400,
+            roadWidth: 10,
+            islandWidth: 2,
+            lanesPerRoad: 4,
+            fov: 90,
+            fovSpeedUp: 150,
+            speedUp: 2,
+            carLightsFade: 0.4,
+            totalSideLightSticks: 20,
+            lightPairsPerRoadWay: 40,
+            shoulderLinesWidthPercentage: 0.05,
+            brokenLinesWidthPercentage: 0.1,
+            brokenLinesLengthPercentage: 0.5,
+            lightStickWidth: [0.12, 0.5],
+            movingAwaySpeed: [60, 80],
+            lightStickHeight: [1.3, 1.7],
+            movingCloserSpeed: [-120, -160],
+            carLightsLength: [400 * 0.03, 400 * 0.2],
+            carLightsRadius: [0.05, 0.14],
+            carWidthPercentage: [0.3, 0.5],
+            carShiftX: [-0.8, 0.8],
+            carFloorSeparation: [0, 5],
+            colors: {
+              roadColor: 0x080808,
+              islandColor: 0x0a0a0a,
+              background: 0x000000,
+              shoulderLines: 0xFFFFFF,
+              brokenLines: 0xFFFFFF,
+              leftCars: [0xD856BF, 0x6750A2, 0xC247AC],
+              rightCars: [0x03B3C3, 0x0E5EA5, 0x324555],
+              sticks: 0x03B3C3,
+            }
+      }}
+/>
+
+    </div>
+
+<Canvas className="relative h-2/3 w-full">
   <ambientLight intensity={1} />
   <directionalLight intensity={1} position={[5, 5, 5]} />
   {model}
   <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2}/>
-
 </Canvas>
 
-<button
+<button       
   className="mt-1 mb-5 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full font-bold"
   onClick={() => generate(gender, weight)}
 >
   Generate Customized Avatar
 </button>
 </div>
-
-
-<div className={`${isHidden ? 'hidden' : 'block'} w-40 h-40`}>
-  <Canvas className="w-full h-full">
-    <ambientLight intensity={1} />
-    <directionalLight intensity={1} position={[5, 5, 5]} />
-    <Arrow 
-      position={[3, -13 , -78]}
-      scale={8} 
-      rotation={[3.3 ,1.1 , -0.5]}
-    />
-  </Canvas>
-</div>
-
-
-
-<div className={`${isHidden ? 'hidden w-1/3'  : 'w-1/5 visible'} relative w-1/3 h-3/4 bg-black bg-opacity-70 border-2 border-orange-500 rounded-3xl flex-col items-center`}>
-
-<Canvas className="h-1/3 w-full">
-  <ambientLight intensity={1} />
-  <directionalLight intensity={1} position={[5, 5, 5]} />
-  {getFittestModel(gender)}
-  <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2}/>
-</Canvas>
-
-<h3
-  className="mt-1 text-center mb-5 text-orange-500 hover:text-white p-3 rounded-full font-bold"
-  
->
-  Ready to get this Transformed body
-</h3>
-</div> 
 
 </main>
 
